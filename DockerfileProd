@@ -1,0 +1,46 @@
+# FROM node:lts-alpine
+# ENV NODE_ENV=production
+# WORKDIR /usr/src/app
+# COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+# RUN npm install --production --silent && mv node_modules ../
+# COPY . .
+# EXPOSE 5173
+# RUN chown -R node /usr/src/app
+# USER node
+# CMD ["npm", "start"]
+
+# Utilizar una imagen de node lts-alpine como base
+FROM node:lts-alpine
+
+# Establecer el entorno NODE_ENV en production
+# ENV NODE_ENV=production
+
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /usr/src/app
+
+# Copiar los archivos de configuración de npm
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+
+# Instalar todas las dependencias
+RUN npm install --silent
+
+# Copiar el resto de los archivos de la aplicación
+COPY . .
+
+# Ejecutar el proceso de construcción de la aplicación Vite
+RUN npm run build
+
+# Exponer el puerto en el que la aplicación se ejecutará dentro del contenedor
+EXPOSE 5173
+
+# Eliminar las dependencias de desarrollo
+RUN npm prune --production
+
+# Cambiar el propietario de los archivos al usuario "node"
+RUN chown -R node /usr/src/app
+
+# Establecer el usuario "node" como el usuario que ejecutará la aplicación
+USER node
+
+# Comando para iniciar la aplicación (puede variar según cómo Vite haya sido configurado)
+CMD ["npm", "run", "preview"]

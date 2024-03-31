@@ -44,11 +44,11 @@ const RandomColor = () => {
     return (
         <div className='h-screen w-screen flex items-center justify-center' style={{ backgroundColor: color }} >
             {/* Botón para mostrar el color actual y generar uno nuevo */}
-            <button className="py-5 px-10 bg-white text-4xl font-semibold font-mono rounded-lg shadow-md transform hover:shadow-lg" style={{ color: color }} onClick={getRandomColor}>
+            <button className="py-5 px-10 bg-white text-4xl font-semibold font-mono rounded-lg shadow-xl hover:bg-gray-200 transform hover:shadow-xl" style={{ color: color }} onClick={getRandomColor}>
                 {color}
             </button>
             {/* Botón para copiar el color actual al portapapeles */}
-            <button className="ml-5 py-5 px-10 text-4xl bg-white hover:bg-gray-500 font-mono hover:rounded-lg text-white font-semibold rounded-lg hover:shadow-lg" style={{ color: color }} onClick={copyToClipboard}>
+            <button className="ml-5 py-5 px-10 bg-white text-4xl font-semibold font-mono rounded-lg shadow-xl hover:bg-gray-200 transform hover:rounded-lg text-white  hover:shadow-xl" style={{ color: color }} onClick={copyToClipboard}>
                 Copiar
             </button>
         </div>
